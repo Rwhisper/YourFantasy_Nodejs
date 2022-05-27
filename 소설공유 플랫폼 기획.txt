@@ -1,0 +1,60 @@
+##소설 공유 플랫폼(Your Fantasy)
+Node.js 실습을 위한 소설 공유 플랫폼 프로젝트
+##DB
+### 사용 DataBase : 
+
+### User
+- user_id
+- user_pw
+- user_name
+
+### novel
+- novel_id
+- novel_suject
+- novel_Introduce
+- user_id			
+
+### contents 
+- novel_id		// 글 식별코드
+- novel_num		// 몇화인지
+- novel_subtitle		// 소제목
+- content			// 글 내용
+- views			// 조회수
+- stars			// 글에 좋아요
+- category_id		// 글 카테고리 (장르)
+- status			// 완료 상태
+- work_review		// 작품 후기(작가가 쓴)
+
+### category
+- category_id		// 카테고리 아이디
+- category_name		// 카테고리 필드명
+: 판타지, 로맨스 판타지, 현대 판타지, 무협, 퓨전 판타지, 팬픽, 현대 소설, 로맨스, 게임, 패러디, 일반, 문학, 라이트노벨, 스포츠, 역사
+### comments
+- board_comment_id 	// 댓글 식별코드
+- board_id		// 어떤 글의 댓글인지
+- commnet		// 댓글 내용
+- user_id			// 댓글 쓴 사람의 아이디
+- stars			// 댓글에 좋아요
+
+### favorite_category
+- user_id			// 유저 아이디
+- category_id		// 카테고리 아이디
+
+
+## Page
+### index.html : 메인페이지 
+: 로그인, 회원가입, 글 읽기
+### login.html : 로그인 
+: 아이디 비밀번호 체크
+### register.html : 회원가입
+: 아이디 중복체크, 비밀번호 확인
+### profile.html : 프로필
+: 본인이 쓴글 수정, 본인이 쓴 글 내용, 글 쓴 갯수, 쓴 댓글 수
+### board.html :  게시판, 글 목록
+: 소설 목록, 소설 제목, 필명, 조회수, 추천수
+### board/content[] :  글 읽기
+: 글 내용, 글제목, 댓글, 추천, 조회수(로그인 한 사람들 대상으로)
+
+
+
+
