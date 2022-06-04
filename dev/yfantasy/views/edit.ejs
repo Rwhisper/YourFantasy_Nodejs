@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Your Fantasy</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md shadow-sm">
+        <div class="container-fluid"><a class="navbar-brand" href="/">Your Fantasy</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="/contents">글 목록</a></li>
+                    <li class="nav-item"></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/users/logout">로그아웃</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/users/mypage">MyPage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+                </ul>
+            </div><input type="search">
+        </div>
+    </nav>
+    <div class="container p-2">
+        <article>
+            <h1>Heading</h1>
+            <form action="/contents/update" method="post">
+                <div class="mt-2"><textarea class="form-control form-control-sm" placeholder="소제목" name="subtitle" autofocus=""></textarea><textarea class="form-control form-control-lg" placeholder="본문" name="content"></textarea><textarea class="form-control" placeholder="작품후기" name="work_review" spellcheck="true" wrap="hard"></textarea><button class="btn btn-primary float-end mt-2" type="submit">수정하기</button><button class="btn btn-secondary float-end mt-2" type="reset">취소</button></div>
+            </form>
+        </article>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://geodata.solutions/includes/countrystate.js"></script>
+    <script src="../assets/js/script.min.js"></script>
+</body>
+
+
+</html>
