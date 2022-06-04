@@ -11,7 +11,7 @@ db : 미정
 2022.05.27 ~ 진행중
 
 ## DB 정의(진행중)
-https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/tree/main/DB
+https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/DB.md
 
 ## 페이지(사용자 인터페이스) 정의
 https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/page.md
