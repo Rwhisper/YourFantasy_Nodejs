@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var mysql_odbc = require('../db/db_conn')();
 var conn = mysql_odbc.init();
+var passport = require('../config/passport');
 
 /* GET users listing. */
 // 
@@ -12,37 +13,49 @@ router.get('/', function(req, res, next) {
 });
 
 // 로그인 화면 요청
-router.get('/login', (req, res, next) => {
+router.get('/login',  (req, res, next) => {
   res.render("login", { title: '로그인' });
 });
 
 // 로그인 요청
-router.post('/login', (req, res, next) => {
-  var email = req.body.email;
-  var password = req.body.password;
-  var password_check = req.body.password_check;
-  if(password != password_check) res.redirect('/users/login');
+// router.post('/login', (req, res, next) => {
+//   sess = req.session;
+//   var email = req.body.email;
+//   var password = req.body.password;
   
-  var sql = "select email, password from users where email=?";
-    conn.query(sql, [email], (err, rows) => {
-        if(err) console.error("err : " + err); 
-        if(rows[0]){
-          if(rows[0].email == email && rows[0].password == password){
-            req.session.is_logigned = true;
-            req.session.email = row.email;
-            req.session.nickName = row.email;
-            req.session.email = row.email;
-            req.session.password = row.password;
+//   var sql = "select email, nickName, password from users where email=?";
+//     conn.query(sql, [email], (err, rows) => {
+//         if(err) console.error("err : " + err); 
+//         if(rows[0]){
+//           if(rows[0].email == email && rows[0].password == password){
+//             console.log("로그인 성공");
+//             req.session.is_logined = true;
+//             console.log(req.session.is_logined);
+//             req.session.email = rows[0].email;
+//             req.session.nickName = rows[0].nickName;
+//             req.session.password = rows[0].password;
+            
+//             req.session.save(() => {
+//               console.log(req.session);
+//               res.redirect('/');
+//             });
+            
+//           }
+//           else{
+//              res.redirect('/users/login');
+//           }
+//         } 
+//         else {res.redirect('/users/login');}       
+//     });
+// });
 
-            res.redirect("/contents");
-          }
-          else{
-             res.redirect('/users/login');
-          }
-        } 
-        else {res.redirect('/users/login');}       
-    });
-});
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                    failureRedirect: '/login',
+                                    failureFlash: true ,
+                                    session: true
+  })
+);
 
 // 로그아웃
 router.get('/logout', (req, res, next) => {
@@ -58,13 +71,16 @@ router.get('/register', (req, res, next) => {
 
 // 회원가입 요청
 router.post('/register', (req, res, next) => {
-  var email = req.body.email;
-  if(req.body.email == null)
+  var email = req.body.email;    
   console.log('널값 들어옴');
   var password = req.body.password;
-  var nickName = req.body.nickName;
+  var nickName = req.body.nickName;  
+  var password_check = req.body.password_check;
+  if(email == undefined || password == undefined || nickName == undefined || password_check || password != password_check) res.redirect('users/login');
+
   var data = [email, password, nickName];
-  console.log(email + " : " + password + " : " + nickName + " : " + data);
+  
+  console.log(data);
   if(chekdEmail(email)){
     console.log('회원가입 재시도');
     res.redirect('/register')

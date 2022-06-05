@@ -13,29 +13,15 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md shadow-sm">
-        <div class="container-fluid"><a class="navbar-brand" href="/">Your Fantasy</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="/contents">글 목록</a></li>
-                    <li class="nav-item"></li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/users/logout">로그아웃</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/users/mypage">MyPage</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-                </ul>
-            </div><input type="search">
-        </div>
-    </nav>
+    <% include ./commons/navbar %>
     <div class="container">
         <header>
             <nav class="navbar navbar-light navbar-expand-md d-xl-flex">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse text-center d-xl-flex justify-content-xl-center" id="navcol-2">
                         <ul class="navbar-nav d-xl-flex justify-content-xl-center">
-                            <li class="nav-item"><a class="nav-link" href="/mypage">프로필 관리</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="/mynovel">나의 작품 관리</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/users/mypage">프로필 관리</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/users/mynovel">나의 작품 관리</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">보관함(보류)</a></li>
                         </ul>
                     </div>
@@ -47,17 +33,17 @@
         <div class="card-group">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">새로운 작품 시작하기</h4><a class="btn btn-primary" role="button" href="/contants/new">새로 만들기</a>
+                    <h4 class="card-title mb-3">새로운 작품 시작하기</h4><a class="btn btn-primary" role="button" href="/contents/new">새로 만들기</a>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">연재 중 인 작품</h4><a class="fs-4" href="/serialize/<%=id%>">0</a>
+                    <h4 class="card-title mb-3">연재 중 인 작품</h4><a class="fs-4" href="/serialize/">0</a>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-3">완결 낸 작품</h4><a class="fs-4" href="/complete/<%=id%>">0</a>
+                    <h4 class="card-title mb-3">완결 낸 작품</h4><a class="fs-4" href="/complete/">0</a>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ var conn = mysql_odbc.init();
 //   });
 
 // 소설 목록
-router.get('/',(req, res, next) => {
+router.get('/list',(req, res, next) => {
     var category = req.query.category;   
     var page = req.query.page;
     
@@ -40,7 +40,7 @@ router.get('/',(req, res, next) => {
 });
 
 // 소설 목록
-router.get('/:category',(req, res, next) => {
+router.get('/list/:category',(req, res, next) => {
     var category = req.params.category; 
     var sql = "select novel_id, novel_title,  novel_introduce, date_format(novel_create_time, '%Y-%m-%d %H:%i:%s') novel_create_time, "+
         "category, nickName from novel, users where novel.users_email = users.email and category=? ";
@@ -104,6 +104,7 @@ router.post('/new', (req, res, next) => {
     var data = [novel_title, novel_introduce, category, users_email]
     var sql = "insert into novel(novel_id, novel_title, novel_introduce, novel_create_time, category, users_email, status) " + 
     "values(null, ?, ?, now(), ?, ? , 'doing')";
+
     conn.query(sql, data, (err, rows) => {
       if(err) console.error("err : " + err); 
       res.redirect('/users/mynovel');

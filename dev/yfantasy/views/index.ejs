@@ -13,21 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md shadow-sm mb-2" style="--bs-primary-rgb: 172,96,191;color: var(--bs-indigo);">
-        <div class="container-fluid"><a class="navbar-brand" href="/">Your Fantasy</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="contents">글 목록</a></li>
-                    <li class="nav-item"></li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/users/login">로그인</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/users/register">회원가입</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-                </ul>
-            </div><input type="search"><button class="btn btn-primary ms-2" type="button">Button</button>
-        </div>
-    </nav>
+   <% include ./commons/navbar %>
     <div data-bss-parallax-bg="true" id="parallax-container" data-bs-parallax-bg="true" style="height: 70vh;background: url(&quot;assets/img/fantasy2.jpg&quot;) center / cover repeat-x, transparent;position: relative;overflow: hidden;">
         <div data-bss-parallax-bg="true" class="bg-success d-flex align-items-center">
             <div class="text-center w-100 text-white header-content"><img class="img-fluid mx-auto d-block" src="assets/img/div-deco-top-white.png">
