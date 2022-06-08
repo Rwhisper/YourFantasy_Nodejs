@@ -13,17 +13,17 @@
 </head>
 
 <body>
-    <% include ./commons/navbar %>
     <div class="container p-2 mt-3">
         <h1>새 작품 등록</h1>
         <hr>
         <article>
-            <form action="/novel/new" method="post">
+            <form action="/contents/new" method="post">
+                <!-- <input type="hidden" name = "email" values="<%= user[0].email %>"/> -->
                 <div class="card mt-2">
                     <div class="card-body">
                         <div class="row text-center justify-content-center align-items-center">
                             <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3"><span>작품명</span></div>
-                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><input class="form-control" type="text"></div>
+                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><input class="form-control" type="text" name="novel_title"></div>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <div class="row text-center justify-content-center align-items-center">
                             <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3"><span>카테고리 선택</span></div>
-                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><select class="form-select">
+                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><select class="form-select" name="category">
                                     <optgroup label="카테고리">
                                         <option value="fantasy" selected="">판타지</option>
                                         <option value="modern_fantasy">현판</option>
@@ -56,7 +56,7 @@
                     <div class="card-body">
                         <div class="row text-center justify-content-center align-items-center">
                             <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3"><span>작품 소개</span></div>
-                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><textarea class="form-control"></textarea></div>
+                            <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9"><textarea class="form-control" name ="novel_introduce"></textarea></div>
                         </div>
                     </div>
                 </div>

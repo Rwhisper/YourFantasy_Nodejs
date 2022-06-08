@@ -14,7 +14,7 @@
 
 <body>
    <% include ./commons/navbar %>
-    <div data-bss-parallax-bg="true" id="parallax-container" data-bs-parallax-bg="true" style="height: 70vh;background: url(&quot;assets/img/fantasy2.jpg&quot;) center / cover repeat-x, transparent;position: relative;overflow: hidden;">
+    <div data-bss-parallax-bg="true" id="parallax-container" data-bs-parallax-bg="true" style="height: 70vh;background: url(&quot;assets/img/fantasy2.jpg&quot;)  transparent;position: relative;overflow: hidden;">
         <div data-bss-parallax-bg="true" class="bg-success d-flex align-items-center">
             <div class="text-center w-100 text-white header-content"><img class="img-fluid mx-auto d-block" src="assets/img/div-deco-top-white.png">
                 <div class="owl-carousel">
@@ -26,7 +26,7 @@
                         <h1 class="header-title">Praesent vitae eros<br></h1>
                         <p>Integer vehicula elit id ante efficitur in blandit<br></p>
                     </div>
-                </div><img class="img-fluid mx-auto d-block" src="assets/img/div-deco-white.png"><a class="btn btn-primary ani-button" role="button" href="/contents"><span>Read novel</span></a>
+                </div><img class="img-fluid mx-auto d-block" src="assets/img/div-deco-white.png"><a class="btn btn-primary ani-button" role="button" href="/contents/list"><span>Read novel</span></a>
                 <h2 class="header-phone">당신의 상상을 공유하세요<br><br></h2>
             </div>
         </div>
@@ -35,56 +35,56 @@
         <div class="card-group">
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-border-all" style="border-top-style: none;"></i>전체</h4><a class="btn btn-primary" role="button" style="--bs-primary-rgb: 151,35,205;background: rgb(82,66,183);border-top-style: none;" href="/contents">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-border-all" style="border-top-style: none;"></i>전체</h4><a class="btn btn-primary" role="button" style="--bs-primary-rgb: 151,35,205;background: rgb(82,66,183);border-top-style: none;" href="/contents/list">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-dragon" style="border-top-style: none;"></i>판타지</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/fantasy">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-dragon" style="border-top-style: none;"></i>판타지</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/fantasy">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-heart" style="border-top-style: none;"></i>로맨스</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/romance">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-heart" style="border-top-style: none;"></i>로맨스</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/romance">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-building" style="border-top-style: none;"></i>현대 판타지</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/modernfantasy">이동</a>
-                </div>
-            </div>
-        </div>
-        <div class="card-group" style="border-top-style: none;">
-            <div class="card" style="border-top-style: none;">
-                <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-hand-rock" style="border-top-style: none;"></i>무협</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/wuxia">이동</a>
-                </div>
-            </div>
-            <div class="card" style="border-top-style: none;">
-                <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-book" style="border-top-style: none;"></i>일반 문학</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/novel">이동</a>
-                </div>
-            </div>
-            <div class="card" style="border-top-style: none;">
-                <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-feather-alt" style="border-top-style: none;"></i>라이트 노벨</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/litenovel">이동</a>
-                </div>
-            </div>
-            <div class="card" style="border-top-style: none;">
-                <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-running" style="border-top-style: none;"></i>스포츠</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/sprots">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-building" style="border-top-style: none;"></i>현대 판타지</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/modernfantasy">이동</a>
                 </div>
             </div>
         </div>
         <div class="card-group" style="border-top-style: none;">
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-history" style="border-top-style: none;"></i>&nbsp;역사</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/history">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="far fa-hand-rock" style="border-top-style: none;"></i>무협</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/wuxia">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-gamepad" style="border-top-style: none;"></i>게임</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/game">이동</a>
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-book" style="border-top-style: none;"></i>일반 문학</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/novel">이동</a>
+                </div>
+            </div>
+            <div class="card" style="border-top-style: none;">
+                <div class="card-body" style="border-top-style: none;">
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-feather-alt" style="border-top-style: none;"></i>라이트 노벨</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/litenovel">이동</a>
+                </div>
+            </div>
+            <div class="card" style="border-top-style: none;">
+                <div class="card-body" style="border-top-style: none;">
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-running" style="border-top-style: none;"></i>스포츠</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/sprots">이동</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-group" style="border-top-style: none;">
+            <div class="card" style="border-top-style: none;">
+                <div class="card-body" style="border-top-style: none;">
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-history" style="border-top-style: none;"></i>&nbsp;역사</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/history">이동</a>
+                </div>
+            </div>
+            <div class="card" style="border-top-style: none;">
+                <div class="card-body" style="border-top-style: none;">
+                    <h4 class="card-title" style="border-top-style: none;"><i class="fas fa-gamepad" style="border-top-style: none;"></i>게임</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/game">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
@@ -92,12 +92,12 @@
                     <h4 class="card-title" style="border-top-style: none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" style="border-top-style: none;">
                             <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                             <path d="M544 64h-16V56C528 42.74 517.3 32 504 32S480 42.74 480 56V64H43.17C19.33 64 0 83.33 0 107.2v89.66C0 220.7 19.33 240 43.17 240c21.26 0 36.61 20.35 30.77 40.79l-40.69 158.4C27.41 459.6 42.76 480 64.02 480h103.8c14.29 0 26.84-9.469 30.77-23.21L226.4 352h94.58c24.16 0 45.5-15.41 53.13-38.28L398.6 240h36.1c8.486 0 16.62-3.369 22.63-9.373L480 208h64c17.67 0 32-14.33 32-32V96C576 78.33 561.7 64 544 64zM328.5 298.6C327.4 301.8 324.4 304 320.9 304H239.1L256 240h92.02L328.5 298.6zM480 160H64V128h416V160z"></path>
-                        </svg>밀리터리</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/military">이동</a>
+                        </svg>밀리터리</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);border-top-style: none;" href="/contents/list/military">이동</a>
                 </div>
             </div>
             <div class="card" style="border-top-style: none;">
                 <div class="card-body" style="border-top-style: none;">
-                    <h4 class="card-title"><i class="fas fa-space-shuttle"></i>SF</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);" href="/contents/sf">이동</a>
+                    <h4 class="card-title"><i class="fas fa-space-shuttle"></i>SF</h4><a class="btn btn-primary" role="button" style="background: rgb(82,66,183);" href="/contents/list/sf">이동</a>
                 </div>
             </div>
         </div>

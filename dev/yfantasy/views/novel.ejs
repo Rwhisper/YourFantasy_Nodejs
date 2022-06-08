@@ -5,79 +5,77 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Your Fantasy</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="../assets/css/styles.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.min.css">
 </head>
 
 <body>
     <% include ./commons/navbar %>
-    <div class="container">
-        <nav class="navbar navbar-light navbar-expand-md">
-            <div class="container-fluid"><a class="navbar-brand" href="#"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse d-md-flex justify-content-md-center" id="navcol-2">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" href="/contents">전체</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/fantasy">판타지</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/romance">로맨스</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/modernfantasy">현대 판타지</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/wuxia">무협</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/novel">일반 문학</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/litenovel">라이트 노벨</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/sprots">스포츠</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/history">역사</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/game">게임</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/military">밀리터리</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/sf">SF</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <% include ./commons/header %>
     <div class="container mt-2">
         <div class="card mb-2">
             <div class="card-body">
-                <header>
-                    <h4>제목</h4>
-                    <h6 class="text-muted mb-2">작가</h6>
-                </header><span>~~~편 연재중 or 완결</span>
-                <p>작품 소개 들어가는 곳</p>
+                <header>  
+                    <h4> <%= novel[0].novel_title %></h4>
+                    <% if(user){ 
+                        if(user[0].email == novel[0].users_email) %>
+                        <a class="btn btn-primary float-end" role="button" href="/contents/newwriting/<%= novel[0].novel_id %>">글 작성하기</a>
+                    <%}  %>
+                    <h6 class="text-muted mb-2"><%= novel[0].nickName %></h6>
+                </header>
+                <p>총 <%= novel[0].episodes %>화</p>
+                <% if(novel[0].status== "doing"){ %> 
+                    <span>연재중</span>
+                <% } else { %> 
+                    <span>완결</span>
+                    <% } %>
+                <p><%= novel[0].novel_introduce %></p>
             </div>
         </div>
-        <div class="card mb-2">
-            <div class="card-body">
-                <h4 class="card-title">최신편 이름</h4>
-                <h6 class="text-muted card-subtitle mb-2">소제목</h6>
-                <h6 class="text-muted card-subtitle mb-2">날짜</h6>
-                <p class="card-text">화수</p>
+        <% if(contents[0] != undefined){             
+            for(var i=0; i<contents.length; i++)
+            {
+                var data = contents[i];
+            
+            %>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h4 class="card-title"><%= data.subtitle %></h4>
+                    <h6 class="text-muted card-subtitle mb-2">소제목</h6>
+                    <h6 class="text-muted card-subtitle mb-2"></h6>
+                    <p class="card-text">화수</p>
+                </div>
             </div>
-        </div>
-        <div class="card mb-2">
-            <div class="card-body mb-2">
-                <div class="input-group"><select class="form-select">
-                        <optgroup label="정렬">
-                            <option value="1" selected="">최신순으로</option>
-                            <option value="2">오래된 순으로</option>
-                            <option value="14">This is item 3</option>
-                        </optgroup>
-                    </select><button class="btn btn-primary" type="button">Button</button></div>
+            <div class="card mb-2">
+                <div class="card-body mb-2">
+                    <div class="input-group"><select class="form-select">
+                            <optgroup label="정렬">
+                                <option value="1" selected="">최신순으로</option>
+                                <option value="2">오래된 순으로</option>
+                                <option value="14">This is item 3</option>
+                            </optgroup>
+                        </select><button class="btn btn-primary" type="button">Button</button></div>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-body"><a href="/novel">
-                    <h4>편 이름</h4>
-                </a>
-                <h6 class="text-muted card-subtitle mb-2">소제목</h6>
-                <h6 class="text-muted card-subtitle mb-2">날짜</h6>
-                <p class="card-text">화수</p>
+            <div class="card">
+                <div class="card-body"><a href="/novel">
+                        <h4><%= data.subtitle %></h4>
+                    </a>
+                    <h6 class="text-muted card-subtitle mb-2"><%= data.content_create_time %></h6>
+                    <h6 class="text-muted card-subtitle mb-2">날짜</h6>
+                    <p class="card-text"><%= i %></p>
+                </div>
             </div>
-        </div>
+            <% }
+        } else {} %>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://geodata.solutions/includes/countrystate.js"></script>
-    <script src="../assets/js/script.min.js"></script>
+    <script src="/assets/js/script.min.js"></script>
 </body>
 
 </html>

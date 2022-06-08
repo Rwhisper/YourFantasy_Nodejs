@@ -20,8 +20,8 @@
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse text-center d-xl-flex justify-content-xl-center" id="navcol-2">
                         <ul class="navbar-nav d-xl-flex justify-content-xl-center">
-                            <li class="nav-item"><a class="nav-link active" href="mypage.html">프로필 관리</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">나의 작품 관리</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/users/mypage">프로필 관리</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/users/mynovel">나의 작품 관리</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">보관함(보류)</a></li>
                         </ul>
                     </div>
@@ -34,8 +34,10 @@
             <div class="card-body">
                 <h4 class="card-title">Nickname</h4>
                 <h6 class="text-muted card-subtitle mb-2"></h6>
-                <form><input class="form-control mb-2" type="text">
-                    <p>Email</p><input class="form-control" type="email"><button class="btn btn-primary float-end mt-2" type="submit">저장</button>
+                <form action="/users/updatenick">
+                    <input class="form-control mb-2" type="text" name="nickname" value = "<%= user[0].nickName %>">
+                    <p>Email</p><input class="form-control" type="email" value="<%= user[0].email %>" readonly>
+                    <button class="btn btn-primary float-end mt-2" type="submit">저장</button>
                 </form><a class="mt-2" href="#">비밀번호 수정</a>
             </div>
         </div>

@@ -10,14 +10,6 @@ var bodyParser = require('body-parser');
 var multiparty = require('connect-multiparty');
 var passport = require('./config/passport');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var contentsRouter = require('./routes/contents');
-var formRouter = require('./routes/form');
-var mysqlRouter = require('./routes/mysql');
-var boardRouter = require('./routes/board');
-
-
 var options = {
   host: 'localhost',
   port: '3306',
@@ -39,11 +31,11 @@ app.use(multiparty());
 app.use(logger('dev'));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+
 app.use(cookieParser('session_cookie_secret'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.use(
@@ -66,6 +58,12 @@ app.use((req, res, next) => {
   next();
 })
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var contentsRouter = require('./routes/contents');
+var formRouter = require('./routes/form');
+var mysqlRouter = require('./routes/mysql');
+var boardRouter = require('./routes/board');
 
 
 
