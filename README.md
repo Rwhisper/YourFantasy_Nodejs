@@ -7,8 +7,11 @@ front-end : 미정
 back-end : node.js, express
 db : 미정
 
-## 기간 
-2022.05.27 ~ 진행중
+## 일정 
+- 2022.05.27 ~ 2022.06.04 : 기획 및 db 구조생성, express 프로젝트 생성, 일부 모듈 및 라우터 작성
+- 2022.06.05 ~ 2022.06.06 : 템플릿 수정 및 라우터 작성
+- 2022.06.06 : 세션 인증 추가
+- 2022.06.06 ~ 진행중
 
 ## DB 정의(진행중)
 https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/DB.md
