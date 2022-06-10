@@ -13,6 +13,7 @@ var conn = mysql_odbc.init();
 // 소설 목록
 router.get('/list',(req, res, next) => {
     var category = req.query.category;   
+    
     var page = req.query.page;
     
     var sql = "select novel_id, novel_title,  novel_introduce, date_format(novel_create_time, '%Y-%m-%d %H:%i:%s') novel_create_time, "+
@@ -26,6 +27,7 @@ router.get('/list',(req, res, next) => {
         conn.query(sql, [category], (err, rows) => {
             if(err) console.error("err : " + err);
             res.render('list',{title:'게시판 리스트', rows:rows, page:page, length:rows.length-1, page_num:10, pass: true, category: category});
+            console.log(category);
             console.log(rows.length-1);
         });
     }
@@ -58,52 +60,113 @@ router.get('/list/:category',(req, res, next) => {
 // 작품 정보 (테스트 전)
 router.get('/novel/:novel_id',(req, res, next) => {
     var novel_id = req.params.novel_id;
-    var data = [novel_id, novel_id, novel_id];
+    
+    console.log("novel_id : ",novel_id)
 
     /**
      *  소설, 유저, 콘텐츠 테이블을 조회하여 데이터 불러오기
      *  views, stars, episodes, nickName을 추가로 불러오기 위함
      */
-    var sql1 = "select users.nickName, novel.novel_id, novel_title, novel_introduce, "
-    + " novel_create_time, category, users_email, status,  sum(con.views) as 'views', "
-    + " sum(con.stars) as 'stars' , count(con.episodes) as 'episodes'"
-    + " from  users, novel "
-    + "     left outer join (select novel_id, count(*) as episodes, sum(views) as 'views', sum(stars) 'stars' from contents"
-    + "     where novel_id=1) as con"
-    + " on  novel.novel_id = con.novel_id "
-    + " where novel.users_email = users.email;"
+    // var sql1 = "select users.nickName, novel.novel_id, novel_title, novel_introduce, "
+    // + " novel_create_time, category, users_email, status,  sum(con.views) as 'views', "
+    // + " sum(con.stars) as 'stars' , episodes"
+    // + " from  users, novel "
+    // + "     right outer join (select novel_id, count(*) as episodes, sum(views) as 'views', sum(stars) 'stars' from contents"
+    // + "     where novel_id=?) as con"
+    // + " on  novel.novel_id = con.novel_id "
+    // + " where novel.users_email = users.email;"
+
+    var cntSql = "select sum(con.views) as 'views',  sum(con.stars) as 'stars' , episodes "
+    + "from novel "
+    + "     right outer join (select novel_id, count(*) as episodes, sum(views) as 'views', sum(stars) 'stars' from contents"
+    + "     where novel_id =? ) as con"
+    + " on  novel.novel_id = con.novel_id ;"
+
+    var sql = "select users.nickName, novel.novel_id, novel_title, novel_introduce, "
+    + " novel_create_time, category, users_email, status from users, novel where novel.users_email = users.email and novel_id=? ;"
+
     // var sql1 = "select novel_id,  novel_title, novel_introduce, date_format(novel_create_time, '%Y-%m-%d %H:%i:%s') novel_create_time, category, status, nickName from novel, users where users.email = novel.users_email and novel_id=? ; ";
     // 콘텐츠 리스트 불러오기
     var sql2 = "select contents_id, novel_id, subtitle, views, stars, work_review, date_format(content_create_time, '%Y-%m-%d %H:%i:%s') content_create_time from contents where novel_id=?;";
     
 
-
-    conn.query(sql1, [novel_id],  (err, novel) => {
+    conn.query(cntSql, [novel_id],  (err, cnt) => {
         if(err) console.error("err : " + err);
-        conn.query(sql2, [novel_id],  (err, contents) => {
+        conn.query(sql, [novel_id],  (err, novel) => {
             if(err) console.error("err : " + err);
-            console.log(novel);
-            console.log(contents[0]);
-            res.render("novel", {title: '작품 정보', novel:novel, contents:contents});
-        });        
+            conn.query(sql2, [novel_id],  (err, contents) => {
+                if(err) console.error("err : " + err);
+                console.log(cnt);
+                res.render("novel", {title: '작품 정보', novel:novel, contents:contents, cnt:cnt });
+            });
+        });
     });
+
+    
+    // conn.query(sql2, [novel_id],  (err, contents) => {
+    //     conn.query(sql3, [novel_id], (err, result) => {        
+    //         if(!result){  }
+    //     });
+    //     if(err) console.error("err : " + err);
+    //     console.log(novel);
+    //     console.log(contents[0]);
+    //     res.render("novel", {title: '작품 정보', novel:novel, contents:contents});
+    // })    
+    
+    // conn.query(sql1, [novel_id],  (err, novel) => {
+    //     if(err) console.error("err : " + err);
+            
+    // });
 
 });
 
 // 한화 내용 (테스트 전)
 router.get('/views/:contents_id',(req, res, next) => {
-    var contents_id = req.query.contents_id;  
+    var contents_id = req.params.contents_id;  
 
-    var sql = "select contents_id, novel_id,  subtitle, content, views, stars,  date_format(modidate, '%Y-%m-%d %H:%i:%s') "+
-    "content_create_time from contents where contents_id=? ";
-  
+    if(req.user){
+        var uSql = "update contents set views=views+1  where contents_id=?"
+        conn.query(uSql, [contents_id],  (err, insert) => {
+            if(err) console.error("err : " + err);
+            console.log("조회수 1추가");
+        });
+    }
 
-    conn.query(sql, [contents_id],  (err, rows) => {
-        if(err) console.error("err : " + err);
-        res.render("novel", {title: '작품 정보',  rows:rows});
+    var sql = "select contents_id, novel_id,  subtitle, content, views, stars,  date_format(content_create_time, '%Y-%m-%d %H:%i:%s') "+
+    "content_create_time, work_review from contents where contents_id=? ";
+    var sql2 = "SELECT comment_id, contents_id, comment, stars, nickName, comment.users_email, comment_create_time "
+    + "FROM comment, users where contents_id=? and comment.users_email = users.email"
+    
+    conn.query(sql2, [contents_id],  (err, comments) => {
+        if(err) console.error("err : " + err);        
+        conn.query(sql, [contents_id],  (err, rows) => {
+            if(err) console.error("err : " + err);
+            console.log("rows :", rows[0]);
+            console.log(comments);
+            res.render("viewer", {title: '작품 정보',  rows:rows, comments:comments});
+        });
     });
-
 });
+
+
+
+// 댓글 작성
+router.post('/views/comment', (req, res, next) => {
+    var comment = req.body.comment;
+    var novel_id = req.body.novel_id;
+    if(!req.user) res.redirect("/contents/views/" + novel_id);
+    var user_email = req.user[0].email;
+
+    var data  = [novel_id, comment, user_email];
+
+    var sql = "insert into comment values (null, ?, ?, 0, ?, now());"
+    conn.query(sql, data, (err, rows) => {
+        if(err) console.error("err : " + err); 
+        console.log("생성성공");
+        res.redirect("/contents/views/" + novel_id);
+    });
+});
+
 
 // 미완 
 

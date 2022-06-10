@@ -10,6 +10,9 @@ var bodyParser = require('body-parser');
 var multiparty = require('connect-multiparty');
 var passport = require('./config/passport');
 
+var flash = require('connect-flash');
+
+
 var options = {
   host: 'localhost',
   port: '3306',
@@ -37,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(flash());
 
 app.use(
   session({

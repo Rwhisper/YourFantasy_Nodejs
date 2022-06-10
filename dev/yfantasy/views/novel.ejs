@@ -24,29 +24,30 @@
                         if(user[0].email == novel[0].users_email) %>
                         <a class="btn btn-primary float-end" role="button" href="/contents/newwriting/<%= novel[0].novel_id %>">글 작성하기</a>
                     <%}  %>
-                    <h6 class="text-muted mb-2"><%= novel[0].nickName %></h6>
+                    <h6 class="text-muted mb-2"><%= novel[0].nickName %>의 작품</h6>
                 </header>
-                <p>총 <%= novel[0].episodes %>화</p>
-                <% if(novel[0].status== "doing"){ %> 
+                <% if (cnt[0].episodes != null){ %>
+                    <p>총 <%= cnt[0].episodes %>화</p>
+                <% } else { %>
+                    <p>총 0화</p>
+                <%} if(novel[0].status== "doing"){ %> 
                     <span>연재중</span>
                 <% } else { %> 
                     <span>완결</span>
                     <% } %>
                 <p><%= novel[0].novel_introduce %></p>
+                <p>조회수 : <%= cnt[0].views %></p>
             </div>
         </div>
-        <% if(contents[0] != undefined){             
-            for(var i=0; i<contents.length; i++)
-            {
-                var data = contents[i];
-            
-            %>
+        <% if(contents[0] != undefined){      %>
             <div class="card mb-2">
                 <div class="card-body">
-                    <h4 class="card-title"><%= data.subtitle %></h4>
+                    <h3>최신화</h3>
+                    <h4 class="card-title">
+                        <a href="/contents/views/<%= contents[contents.length-1].contents_id %>"><%= contents[contents.length-1].subtitle %></a>
+                    </h4>
                     <h6 class="text-muted card-subtitle mb-2">소제목</h6>
                     <h6 class="text-muted card-subtitle mb-2"></h6>
-                    <p class="card-text">화수</p>
                 </div>
             </div>
             <div class="card mb-2">
@@ -60,19 +61,29 @@
                         </select><button class="btn btn-primary" type="button">Button</button></div>
                 </div>
             </div>
+            <%       
+            for(var i=0; i<contents.length; i++)
+            {
+                var data = contents[i];
+            
+            %> 
             <div class="card">
-                <div class="card-body"><a href="/novel">
+                <div class="card-body">
+                    <a href="/contents/views/<%= data.contents_id %>">
                         <h4><%= data.subtitle %></h4>
                     </a>
                     <h6 class="text-muted card-subtitle mb-2"><%= data.content_create_time %></h6>
                     <h6 class="text-muted card-subtitle mb-2">날짜</h6>
-                    <p class="card-text"><%= i %></p>
+                    <p class="card-text"><%= i+1  %>화</p>
                 </div>
             </div>
             <% }
-        } else {} %>
-    </div>
+        } else { %>
+            <p>연재한 편 없음</p>
 
+        <%} %>
+    </div>
+    <% include ./commons/footer %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://geodata.solutions/includes/countrystate.js"></script>
     <script src="/assets/js/script.min.js"></script>

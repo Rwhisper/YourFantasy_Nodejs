@@ -51,7 +51,7 @@ router.get('/login',  (req, res, next) => {
 
 router.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                    failureRedirect: '/login',
+                                    failureRedirect: '/users/login',
                                     failureFlash: true ,
                                     session: true
   })
@@ -173,6 +173,15 @@ router.get('/serialize', (req,res, next) => {
   var sql = "select * from novel where users_email=? and status='doing';";
   conn.query(sql, [req.user[0].email], (err, rows) => {
     res.render("serialize", {title: '나의 소설 페이지', novels: rows});
+  });
+  
+});
+// 연재중인 작품 목록 요청
+router.get('/complete', (req,res, next) => {
+
+  var sql = "select * from novel where users_email=? and status='done';";
+  conn.query(sql, [req.user[0].email], (err, rows) => {
+    res.render("complete", {title: '나의 소설 페이지', novels: rows});
   });
   
 });

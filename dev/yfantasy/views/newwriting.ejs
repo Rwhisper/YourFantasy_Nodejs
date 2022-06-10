@@ -18,12 +18,17 @@
         <article>
             <h1><%= novel[0].novel_title %></h1>
             <form action="/contents/newwriting" method="post">
-                <div class="mt-2"><textarea class="form-control form-control-sm" style="font-size:12pt;resize: none;vertical-align: middle;" placeholder="소제목" maxlength="40" name="subtitle" autofocus="" rows="1"  spellcheck="true"></textarea>
+                <div class="mt-2">
+                    <input type="hidden" name="novel_id" value ="<%= novel[0].novel_id %>"/>
+                    <textarea class="form-control form-control-sm" style="font-size:12pt;resize: none;vertical-align: middle;" placeholder="소제목" maxlength="40" name="subtitle" autofocus="" rows="1"  spellcheck="true"></textarea>
                     <textarea class="form-control form-control-lg"  placeholder="본문" name="content" rows="22"></textarea>
-                    <textarea class="form-control" placeholder="작품후기" name="work_review" spellcheck="true" wrap="hard"></textarea><button class="btn btn-primary float-end mt-2" type="submit">등록하기</button><button class="btn btn-secondary float-end mt-2" type="reset">취소</button></div>
+                    <textarea class="form-control" placeholder="작품후기" name="work_review" spellcheck="true" wrap="hard"></textarea>
+                    <button class="btn btn-primary float-end mt-2" type="submit">등록하기</button>
+                    <button class="btn btn-secondary float-end mt-2" type="reset">취소</button></div>
             </form>
         </article>
     </div>
+    <% include ./commons/footer %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://geodata.solutions/includes/countrystate.js"></script>
     <script src="/assets/js/script.min.js"></script>

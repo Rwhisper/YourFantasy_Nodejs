@@ -3,6 +3,7 @@ var mysql_odbc = require('../db/db_conn')();
 // db connection
 var conn = mysql_odbc.init();
 // passport 모듈 
+
 const passport = require('passport');
 const { local } = require('../db/db_info');
 const LocalStrategy = require('passport-local').Strategy;
@@ -48,7 +49,7 @@ passport.use(
         conn.query(sql, [email], (err, user) => {
             if(err) console.log('err : ' + err);
             
-            if(user[0].length == 0){
+            if(user.length == 0){
                 console.log("회원 조회 결과 없음");
                 return done(null, false, { message: 'Incorrect'});
             }else{
