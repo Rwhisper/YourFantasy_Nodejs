@@ -71,12 +71,15 @@ router.get('/register', (req, res, next) => {
 
 // 회원가입 요청
 router.post('/register', (req, res, next) => {
-  var email = req.body.email;    
-  console.log('널값 들어옴');
+  var email = req.body.email;  
   var password = req.body.password;
   var nickName = req.body.nickName;  
   var password_check = req.body.password_check;
-  if(email == undefined || password == undefined || nickName == undefined || password_check || password != password_check) res.redirect('users/login');
+  if(email == undefined || password == undefined || nickName == undefined ||  password != password_check){
+       console.log('널값 들어옴');
+    res.redirect('/users/login');
+    return;
+  }
 
   var data = [email, password, nickName];
   
@@ -92,7 +95,6 @@ router.post('/register', (req, res, next) => {
       res.redirect('/users/login');
     });
   }
-
 });
 
 var chekdEmail = (email) => {
@@ -104,9 +106,10 @@ var chekdEmail = (email) => {
       console.log('같은 이메일 있음');
       return true;
     }        
-    else console.log('같은 이메일 없음');
-
+    else {
+      console.log('같은 이메일 없음');
     return false;
+    }
   });
   
 };

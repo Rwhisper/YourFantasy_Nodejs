@@ -15,15 +15,15 @@
 <body>
     <% include ./commons/navbar %>
     <% include ./commons/header %>
-    <div class="container mt-2">
+    <div class="container mt-2" style="margin-bottom: 200px;">
         <div class="card mb-2">
             <div class="card-body">
                 <header>  
                     <h4> <%= novel[0].novel_title %></h4>
                     <% if(user){ 
-                        if(user[0].email == novel[0].users_email) %>
+                        if(user[0].email == novel[0].users_email) { %>
                         <a class="btn btn-primary float-end" role="button" href="/contents/newwriting/<%= novel[0].novel_id %>">글 작성하기</a>
-                    <%}  %>
+                    <%} }  %>
                     <h6 class="text-muted mb-2"><%= novel[0].nickName %>의 작품</h6>
                 </header>
                 <% if (cnt[0].episodes != null){ %>
@@ -50,7 +50,7 @@
                     <h6 class="text-muted card-subtitle mb-2"></h6>
                 </div>
             </div>
-            <div class="card mb-2">
+            <!-- <div class="card mb-2">
                 <div class="card-body mb-2">
                     <div class="input-group"><select class="form-select">
                             <optgroup label="정렬">
@@ -60,7 +60,7 @@
                             </optgroup>
                         </select><button class="btn btn-primary" type="button">Button</button></div>
                 </div>
-            </div>
+            </div> -->
             <%       
             for(var i=0; i<contents.length; i++)
             {

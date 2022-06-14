@@ -15,7 +15,7 @@
 <body>
     <% include ./commons/navbar %>
     <% include ./commons/header %>
-    <main class="mt-2">
+    <main class="mt-2" style="margin-bottom: 400px;">
         <div class="container d-xl-flex justify-content-xl-center">
             <div class="row d-inline flex-fill">
                 <div class="col mb-3">
@@ -31,8 +31,9 @@
                 </div>
                 <div class="col mb-2">
                     <form action = "/contents/views/comment" method="post">
-                        <input type="hidden" name="novel_id" value ="<%= rows[0].novel_id %>"/>
+                        <input type="hidden" name="contents_id" value ="<%= rows[0].contents_id %>"/>
                         <p>댓글 작성</p><textarea class="form-control" name="comment"></textarea>
+                        <hidden>
                         <div class="d-xl-flex justify-content-xl-end mt-2"><button class="btn btn-primary" type="submit">저장</button></div>
                     </form>
                 </div>
@@ -57,7 +58,7 @@
                                 <tr>
                                     <td><%= data.nickName %></td>
                                     <td><%= data.comment %></td>
-                                    <td><%= data.comment_create_time %></td>
+                                    <td><%= moment(data.comment_create_time).format('YYYY-MM-DD hh:mm:ss')  %></td>
                                 </tr>
                                 <% } %>
                             </tbody>

@@ -14,7 +14,7 @@
 
 <body>
     <% include ./commons/navbar %>
-    <div class="container">
+    <div class="container" >
         <header>
             <nav class="navbar navbar-light navbar-expand-md d-xl-flex">
                 <div class="container-fluid">
@@ -22,14 +22,14 @@
                         <ul class="navbar-nav d-xl-flex justify-content-xl-center">
                             <li class="nav-item"><a class="nav-link" href="/users/mypage">프로필 관리</a></li>
                             <li class="nav-item"><a class="nav-link active" href="/users/mynovel">나의 작품 관리</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">보관함(보류)</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#">보관함(보류)</a></li> -->
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
     </div>
-    <div class="container">
+    <div class="container" style="margin-bottom: 200px;">
         <h1>연재 중인 작품 목록</h1>
         <hr>
         <% if(!novels[0]){%>
@@ -48,7 +48,7 @@
                         <h4 class="card-title"><a href="/contents/novel/<%= data.novel_id%>"><%= data.novel_title %></a></h4>
                         <h6 class="text-muted card-subtitle mb-2"><%= data.episodes %></h6>
                         <p class="card-text"><%= data.novel_introduce %></p>
-                        <span>조회수 : <%= data.views %></span><span>&nbsp;좋아요 수 : <%= data.stars %></span>
+                        <!-- <span>조회수 : <%= data.views %></span><span>&nbsp;좋아요 수 : <%= data.stars %></span> -->
                     </div>
                 </div>
             </div>

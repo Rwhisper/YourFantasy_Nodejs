@@ -1,6 +1,7 @@
 "use strict"
 
 var express = require('express');
+var moment = require('moment');
 var router = express.Router();
 var mysql_odbc = require('../db/db_conn')();
 var conn = mysql_odbc.init();
@@ -143,7 +144,7 @@ router.get('/views/:contents_id',(req, res, next) => {
             if(err) console.error("err : " + err);
             console.log("rows :", rows[0]);
             console.log(comments);
-            res.render("viewer", {title: '작품 정보',  rows:rows, comments:comments});
+            res.render("viewer", {title: '작품 정보',  rows:rows, comments:comments, moment});
         });
     });
 });
@@ -153,17 +154,21 @@ router.get('/views/:contents_id',(req, res, next) => {
 // 댓글 작성
 router.post('/views/comment', (req, res, next) => {
     var comment = req.body.comment;
-    var novel_id = req.body.novel_id;
-    if(!req.user) res.redirect("/contents/views/" + novel_id);
+    var contents_id = req.body.contents_id;
+
+    if(!req.user) {
+        return res.redirect("/contents/views/" + contents_id);        
+    }
+
     var user_email = req.user[0].email;
 
-    var data  = [novel_id, comment, user_email];
+    var data  = [contents_id, comment, user_email];
 
     var sql = "insert into comment values (null, ?, ?, 0, ?, now());"
     conn.query(sql, data, (err, rows) => {
         if(err) console.error("err : " + err); 
         console.log("생성성공");
-        res.redirect("/contents/views/" + novel_id);
+        res.redirect("/contents/views/" + contents_id);
     });
 });
 
