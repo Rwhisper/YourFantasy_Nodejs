@@ -3,9 +3,9 @@
 Nodejs를 이용한 웹 소설 공유 플랫폼 개인프로젝트
 
 ## 사용 스택
-front-end : 미정
-back-end : node.js, express
-db : mysql
+- front-end : ejs, bootstrap
+- back-end : node.js, express
+- db : mysql
 
 ## 일정 
 - 2022.05.27 ~ 2022.06.04 : 기획 및 db 구조생성, express 프로젝트 생성, 일부 모듈 및 라우터 작성
