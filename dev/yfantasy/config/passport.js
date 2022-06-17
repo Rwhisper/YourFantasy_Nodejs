@@ -3,34 +3,33 @@ var mysql_odbc = require('../db/db_conn')();
 // db connection
 var conn = mysql_odbc.init();
 // passport 모듈 
-
 const passport = require('passport');
 const { local } = require('../db/db_info');
 const LocalStrategy = require('passport-local').Strategy;
- 
+var bcrypt = require('bcrypt-nodejs');
 
 // passport 모듈화
 
 // email 값으로 쿠키 생성
 passport.serializeUser((user, done) => {
-    done(null, user);
+    done(null, user[0].email);
 });
 
 // email를 이용해 user의 전체 정보 받기
-passport.deserializeUser((id, done) => {
-    // console.log("deserializeUser id ", id)
-    // var userinfo;
-    // var sql = 'SELECT * FROM USERS WHERE email=?';
+passport.deserializeUser((email, done) => {
 
-    // conn.query(sql , [id.email], function (err, result) {
-    //     if(err) console.log('mysql 에러');    
+    var userinfo;
+    var sql = 'SELECT * FROM USERS WHERE email=?';
+    console.log(email);
+    conn.query(sql , [email], function (err, result) {
+        if(err) console.log('mysql 에러');    
         
-    //     console.log("deserializeUser mysql result : " , result);
-    //     var json = JSON.stringify(result[0]);
-    //     userinfo = JSON.parse(json);
-    //     done(null, userinfo);
-    // });    
-    done(null, id);
+        console.log("deserializeUser mysql result : " , result);
+        var json = JSON.stringify(result[0]);
+        userinfo = JSON.parse(json);
+        done(null, userinfo);
+    });    
+    
 });
 
 //? auth 라우터에서 /login 요청이 오면 local설정대로 이쪽이 실행되게 된다.
@@ -53,16 +52,18 @@ passport.use(
                 console.log("회원 조회 결과 없음");
                 return done(null, false, { message: 'Incorrect'});
             }else{
-                if(password != user[0].password){
+                //
+                if(!bcrypt.compareSync(password, user[0].password)){ // bcrypt를 이용한 암호화 
+                    console.log("user[0].password: ", user[0].password);
+                    console.log("hash: ", hash);
                     console.log("password 일치하지 않음");
                     return done(null, false, { message: 'Incorrect'});
+                } else {              
+                    console.log("로그인 성공");
+                    console.log(user);                   
+                    console.log("userinfo : " , user);
+                    return done(null, user);    // result 값으로 받아진 회원정보를 return
                 }
-                console.log("로그인 성공");
-                console.log(user);
-                // var json = JSON.stringify(rows);
-                // var userinfo = JSON.parse(json);
-                console.log("userinfo : " , user);
-                return done(null, user);    // result 값으로 받아진 회원정보를 return
             }
         })
     }
