@@ -3,11 +3,11 @@
 module.exports = (() => {
     return {
         local: {
-            host: 'localhost',
-            port: '3306',
-            user: 'luan',
-            password: 'tlsqlrmflawk1!',
-            database: 'noveldb',
+            host: '',
+            port: '',
+            user: '',
+            password: '',
+            database: '',
             multipleStatements: true,
         },
         real: {
