@@ -6,10 +6,6 @@ var router = express.Router();
 var mysql_odbc = require('../db/db_conn')();
 var conn = mysql_odbc.init();
 
-// router.get('/list', function(req, res, next) {
-   
-//     res.render('content');
-//   });
 
 // 소설 목록
 router.get('/list',(req, res, next) => {
@@ -64,18 +60,6 @@ router.get('/novel/:novel_id',(req, res, next) => {
     
     console.log("novel_id : ",novel_id)
 
-    /**
-     *  소설, 유저, 콘텐츠 테이블을 조회하여 데이터 불러오기
-     *  views, stars, episodes, nickName을 추가로 불러오기 위함
-     */
-    // var sql1 = "select users.nickName, novel.novel_id, novel_title, novel_introduce, "
-    // + " novel_create_time, category, users_email, status,  sum(con.views) as 'views', "
-    // + " sum(con.stars) as 'stars' , episodes"
-    // + " from  users, novel "
-    // + "     right outer join (select novel_id, count(*) as episodes, sum(views) as 'views', sum(stars) 'stars' from contents"
-    // + "     where novel_id=?) as con"
-    // + " on  novel.novel_id = con.novel_id "
-    // + " where novel.users_email = users.email;"
 
     var cntSql = "select sum(con.views) as 'views',  sum(con.stars) as 'stars' , episodes "
     + "from novel "
@@ -86,8 +70,6 @@ router.get('/novel/:novel_id',(req, res, next) => {
     var sql = "select users.nickName, novel.novel_id, novel_title, novel_introduce, "
     + " novel_create_time, category, users_email, status from users, novel where novel.users_email = users.email and novel_id=? ;"
 
-    // var sql1 = "select novel_id,  novel_title, novel_introduce, date_format(novel_create_time, '%Y-%m-%d %H:%i:%s') novel_create_time, category, status, nickName from novel, users where users.email = novel.users_email and novel_id=? ; ";
-    // 콘텐츠 리스트 불러오기
     var sql2 = "select contents_id, novel_id, subtitle, views, stars, work_review, date_format(content_create_time, '%Y-%m-%d %H:%i:%s') content_create_time from contents where novel_id=?;";
     
 
@@ -101,24 +83,34 @@ router.get('/novel/:novel_id',(req, res, next) => {
                 res.render("novel", {title: '작품 정보', novel:novel, contents:contents, cnt:cnt });
             });
         });
-    });
+    });    
 
-    
-    // conn.query(sql2, [novel_id],  (err, contents) => {
-    //     conn.query(sql3, [novel_id], (err, result) => {        
-    //         if(!result){  }
-    //     });
-    //     if(err) console.error("err : " + err);
-    //     console.log(novel);
-    //     console.log(contents[0]);
-    //     res.render("novel", {title: '작품 정보', novel:novel, contents:contents});
-    // })    
-    
-    // conn.query(sql1, [novel_id],  (err, novel) => {
-    //     if(err) console.error("err : " + err);
-            
-    // });
 
+});
+
+router.post('/statusUpdate', (req, res, next) => {
+    var novel_id = req.body.novel_id;
+    console.log("1 ", novel_id);
+    var status = req.body.status;
+    console.log("2 ", status);
+    var sql = "select * from novel where novel_id =?"
+    var sql2 = "update novel set status =? where novel_id=?";
+    var data = [status, novel_id];
+    conn.query(sql, [novel_id], (err, rows) => {
+        console.log("user : ", req.user[0].email);
+        console.log("user2 : ",rows[0].users_email);
+        if(req.user[0].email != rows[0].users_email){
+            console.log("4");
+            return res.redirect("/contents/novel/" + novel_id);
+        }
+        else {
+            conn.query(sql2, data, (err, rows) => {
+                console.log("3");
+                return res.redirect("/contents/novel/" + novel_id);
+            });
+        }
+    })
+    
 });
 
 // 한화 내용 (테스트 전)

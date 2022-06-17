@@ -14,49 +14,10 @@
 
 <body>
     <% include ./commons/navbar %>
-    <!-- <% include ./commons/header %> -->
-    <div class="container">
-        <nav class="navbar navbar-light navbar-expand-md">
-            <div class="container-fluid"><a class="navbar-brand" href="#"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse d-md-flex justify-content-md-center" id="navcol-2">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" href="/contents/list">전체</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/fantasy">판타지</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/romance">로맨스</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/modernfantasy">현대 판타지</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/wuxia">무협</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/novel">일반 문학</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/litenovel">라이트 노벨</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/sprots">스포츠</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/history">역사</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/game">게임</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/military">밀리터리</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contents/list/sf">SF</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <% include ./commons/header %>
+  
     <main style="margin-bottom: 600px;">
-        <!-- <div class="container">
-            <div class="mt-2">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-lg-flex justify-content-lg-start"><span class="d-lg-flex align-items-center">글목록</span></div>
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-md-flex justify-content-lg-end">
-                        <form>
-                            <div class="input-group"><span class="input-group-text">카테고리</span><select class="form-select">
-                                    <optgroup label="This is a group">
-                                        <option value="12" selected="">This is item 1</option>
-                                        <option value="13">This is item 2</option>
-                                        <option value="14">This is item 3</option>
-                                    </optgroup>
-                                </select><button class="btn btn-primary" type="button">적용</button></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        </div> -->
+      
         <div class="container">
             <div class="row text-center align-items-center">
                 <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3"><span>제목</span></div>
@@ -96,17 +57,15 @@
                                 for(var j = 0; j < rows.length / page_num; j++){
                                     if(category){
                             %>
-                                    [<a href="/contents/list?page=<%= j + 1 %>&category=<%=category %>"><%= j + 1 %></a>]
+                                <li class="page-item ">
+                                    <a class="page-link" href="/contents/list?page=<%= j + 1 %>&category=<%=category %>"><%= j + 1 %></a></li>
+                                   
                             <% } else { %>
-                                    [<a href="/contents/list?page=<%= j + 1 %> %>"><%= j + 1 %></a>]  
+                                <a class="page-link" href="/contents/list?page=<%= j + 1 %>"><%= j + 1 %></a></li>
                             <%  }
                              }
                             %>
-                            <!-- <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li> -->
-                        </ul>
+                           </ul>
                     </nav>
                 </div>
             </div>
