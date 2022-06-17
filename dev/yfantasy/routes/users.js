@@ -5,6 +5,7 @@ var router = express.Router();
 var mysql_odbc = require('../db/db_conn')();
 var conn = mysql_odbc.init();
 var passport = require('../config/passport');
+var bcrypt = require('bcrypt-nodejs');
 
 /* GET users listing. */
 // 
@@ -17,38 +18,9 @@ router.get('/login',  (req, res, next) => {
   res.render("login", { title: '로그인' });
 });
 
-// 로그인 요청
-// router.post('/login', (req, res, next) => {
-//   sess = req.session;
-//   var email = req.body.email;
-//   var password = req.body.password;
-  
-//   var sql = "select email, nickName, password from users where email=?";
-//     conn.query(sql, [email], (err, rows) => {
-//         if(err) console.error("err : " + err); 
-//         if(rows[0]){
-//           if(rows[0].email == email && rows[0].password == password){
-//             console.log("로그인 성공");
-//             req.session.is_logined = true;
-//             console.log(req.session.is_logined);
-//             req.session.email = rows[0].email;
-//             req.session.nickName = rows[0].nickName;
-//             req.session.password = rows[0].password;
-            
-//             req.session.save(() => {
-//               console.log(req.session);
-//               res.redirect('/');
-//             });
-            
-//           }
-//           else{
-//              res.redirect('/users/login');
-//           }
-//         } 
-//         else {res.redirect('/users/login');}       
-//     });
-// });
 
+
+// 로그인 passport을 사용하여 session에 로그인 정보 저장
 router.post('/login',
   passport.authenticate('local', { successRedirect: '/',
                                     failureRedirect: '/users/login',
@@ -59,6 +31,7 @@ router.post('/login',
 
 // 로그아웃
 router.get('/logout', (req, res, next) => {
+  // 세션 삭제로 로그아웃
   req.session.destroy((err) => {
     res.redirect('/');
   })
@@ -71,32 +44,37 @@ router.get('/register', (req, res, next) => {
 
 // 회원가입 요청
 router.post('/register', (req, res, next) => {
+  // req.body로 post 데이터 읽기
   var email = req.body.email;  
   var password = req.body.password;
   var nickName = req.body.nickName;  
   var password_check = req.body.password_check;
+  // 필수요소들이 값이 없거나 비밀번호가 틀리면 바로 login 화면으로 다시 반환해준다.
   if(email == undefined || password == undefined || nickName == undefined ||  password != password_check){
        console.log('널값 들어옴');
-    res.redirect('/users/login');
+    res.redirect('/users/register');
     return;
-  }
-
-  var data = [email, password, nickName];
+  }  
   
-  console.log(data);
+  // 회원가입 할려는 이메일이 원래 있는지 확인
   if(chekdEmail(email)){
     console.log('회원가입 재시도');
-    res.redirect('/register')
-  }else{
-    console.log('회원가입 요청');
-    var sql = "insert into users(email, password, nickName, createTime) values(?, ?, ?, now())";
-    conn.query(sql, data, (err, rows) => {
-      if(err) console.error("err : " + err); 
-      res.redirect('/users/login');
+    return res.redirect('/register')  // 있다면 원래 화면으로 돌아감
+  }else{                    
+    bcrypt.hash(password, null, null, function(err, hash){     //bcrypt hash 명령문. 
+      var sql = "insert into users(email, password, nickName, createTime) values(?, ?, ?, now())";
+      var data = [email, hash, nickName]; 
+      conn.query(sql, data, function(err, rows){          // 진행된 암호화를 mysql에 저장하기 위해  
+        if(err) console.error("err : " + err); 
+        console.log('success sign-up!');
+        console.log('hash');
+        res.redirect('/users/login'); //회원가입이 성공하면 login화면으로 이동시킨다.
+      });
     });
   }
 });
 
+// 이메일 중복체크 메서드
 var chekdEmail = (email) => {
   console.log("이메일 체크");
   var sql = "select email from users where email=?";
@@ -115,14 +93,14 @@ var chekdEmail = (email) => {
 };
 
 
-// 미완
 
-// 회원정보 수정 화면 요청
+
+// 회원정보 수정 화면 요청(구현 x)
 router.get('/edit', (req, res, next) => {
   res.render("edit", { title: '회원정보' });
 });
 
-// 회원정보 수정 요청
+// 회원정보 수정 요청(구현 x 굳이 필요 없다고 느껴서)
 router.post('/update', (req, res, next) => {
  
 });
@@ -130,7 +108,7 @@ router.post('/update', (req, res, next) => {
 // 회원정보 수정 요청
 router.post('/updatenick', (req, res, next) => {
   nickname = req.body.nickName;
-  var data = [nickname, req.user[0].email];
+  var data = [nickname, req.user.email];
   var sql = "update users set nickName=?  where email=?";
   conn.query(sql, data, (err, rows) => {
     res.redirect("/",{title: 'Your Fantasy'});
@@ -138,33 +116,19 @@ router.post('/updatenick', (req, res, next) => {
 
 });
 
-// 회원정보 수정 요청
-router.post('/updatepassword', (req, res, next) => {
-  nickname = req.body.nickName;
-  if(req.body.password != req.user.password) res.redirect('/users/mypage');
-  new_pw = req.body.newPassword;
-  if(new_pw != req.body.newPassword_Check) res.redirect('/users/mypage');
-
-  var data = [new_pw = req.user[0].email];
-
-  var sql = "update users set password=? where email=?";
-  conn.query(sql, [req.user[0].email], (err, rows) => {
-    res.redirect("/",{title: 'Your Fantasy'});
-  });
-
-});
 
 // 마이페이지 화면 요청
 router.get('/mypage', (req,res, next) => {
+  console.log("a",req.user.nickName);
+  console.log("a",req.user.email);
   res.render("mypage",{title: '마이페이지'});
 });
 
 // 나의 작품 화면 요청
 router.get('/mynovel', (req,res, next) => {
-
   var sql = "select count(case when status='doing' then 1 end) as 'serialize', "
           + "count(case when status='done' then 1 end) as 'complete' from novel where users_email=? ;";
-  conn.query(sql, [req.user[0].email], (err, rows) => {
+  conn.query(sql, [req.user.email], (err, rows) => {  // 작품 종류별 갯수 지정해서 뿌려주기(연재중, 완결)
     res.render("mynovel",{title: '나의 소설 페이지', serialize: rows[0].serialize, complete: rows[0].complete});
   });
   
@@ -174,16 +138,16 @@ router.get('/mynovel', (req,res, next) => {
 router.get('/serialize', (req,res, next) => {
 
   var sql = "select * from novel where users_email=? and status='doing';";
-  conn.query(sql, [req.user[0].email], (err, rows) => {
+  conn.query(sql, [req.user.email], (err, rows) => {  // 로그인 한 사람의 연재중인 작품 목록 요청
     res.render("serialize", {title: '나의 소설 페이지', novels: rows});
   });
   
 });
-// 연재중인 작품 목록 요청
+// 완결된 작품 목록 요청
 router.get('/complete', (req,res, next) => {
 
   var sql = "select * from novel where users_email=? and status='done';";
-  conn.query(sql, [req.user[0].email], (err, rows) => {
+  conn.query(sql, [req.user.email], (err, rows) => {  //로그인 한 사람의 완결된 작품 목록 요청
     res.render("complete", {title: '나의 소설 페이지', novels: rows});
   });
   

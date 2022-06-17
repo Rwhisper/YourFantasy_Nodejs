@@ -1,38 +1,30 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var MySQLStore = require('express-mysql-session');
+var cookieParser = require('cookie-parser');      
+var session = require('express-session');         // express에서 세션을 사용하기 위한 모듈
+var MySQLStore = require('express-mysql-session');  // session을 mysql에 저장하기 위한 모듈
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var multiparty = require('connect-multiparty');
-var passport = require('./config/passport');
+var passport = require('./config/passport');      // 만들어둔 passport 모듈 가져온다.
 var flash = require('connect-flash');
+var config = require('./db/db_info').local; // 미리 생성해둔 db정보를 가져온다.
 
-
-var options = {
-  host: 'localhost',
-  port: '3306',
-  user: 'luan',
-  password: 'tlsqlrmflawk1!',
-  database: 'noveldb',
-  multipleStatements: true,
-};
 
 // 세션정보를 mysql DB 내에 저장한다. (sessions라는 table이 생김)
-var sessionStore = new MySQLStore(options);
+var sessionStore = new MySQLStore(config);
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');    // view 엔진으로ejs를 사용하겟다는 뜻
 
-app.use(multiparty());
+app.use(multiparty());  // 파일 업로드 모듈
 app.use(logger('dev'));
 // app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false })); 
 // 세션 사용을 위한 쿠키설정
 app.use(cookieParser('session_cookie_secret'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -70,21 +62,17 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var contentsRouter = require('./routes/contents');
 
-
-// passport config
-// require('./config/passport')(passport);
-
 // 라우터 모듈 적용
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/contents', contentsRouter);
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler (404 에러 핸들러)
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// error handler(500 에러 핸들러)
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;

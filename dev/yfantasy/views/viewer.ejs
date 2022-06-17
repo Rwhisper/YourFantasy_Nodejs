@@ -25,10 +25,18 @@
                     <textarea class="flex-fill p-4" style="height: 500px;" readonly="">
                         <%= rows[0].content %>
                     </textarea></div>
+                    <% if(user){
+                    if(rows[0].users_email == user.email ) {%>
+                        <div class="d-xl-flex justify-content-xl-end mt-2">
+                            <a class="btn btn-primary mb-2" role="button" href="/contents/edit/<%=rows[0].contents_id %>">수정하기</a>
+                        </div>
+                     
+                    <% } }%>
                 <div class="col d-inline-flex mb-3">
                     <h1 class="fs-5 me-2" >작가의 말&nbsp;</h1> 
                     <textarea class="flex-fill" readonly=""><%= rows[0].work_review %></textarea>
                 </div>
+                
                 <div class="col mb-2">
                     <form action = "/contents/views/comment" method="post">
                         <input type="hidden" name="contents_id" value ="<%= rows[0].contents_id %>"/>

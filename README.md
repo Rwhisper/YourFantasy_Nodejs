@@ -19,3 +19,8 @@ https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/DB.md
 ## 페이지(사용자 인터페이스) 정의
 https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/page.md
 
+## 사용
+- dev/yfantasy 에서 
+- npm i 명령어를 사용해 package.json파일에있는 모듈들을 다운받아준다.
+- 연결한 mysql 접속정보를 db_info와 app.js의  option에 넣고 mysql db에 noveldb데이터베이스를 만들어 테이블을 만들어준다.
+- npm start로 프로젝트를 실행하고 브라우저에서 동작을 확인한다.

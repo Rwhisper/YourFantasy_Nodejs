@@ -21,7 +21,7 @@
                 <header>  
                     <h4> <%= novel[0].novel_title %></h4>
                     <% if(user){ 
-                        if(user[0].email == novel[0].users_email) { %>
+                        if(user.email == novel[0].users_email) { %>
                         <a class="btn btn-primary float-end" role="button" href="/contents/newwriting/<%= novel[0].novel_id %>">글 작성하기</a>
                     <%      if(novel[0].status == 'done')    { %>
                             
