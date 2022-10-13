@@ -13,7 +13,7 @@ Nodejs를 이용한 웹 소설 공유 플랫폼 개인프로젝트
 - 2022.06.06 : 세션 인증 추가
 - 2022.06.06 ~ 2022.06.10 : 1차 완성
 
-## DB 정의(진행중)
+## DB 정의
 https://github.com/Rwhisper/Novel-Sharing-Platform_Nodejs/blob/main/DB.md
 
 ## 페이지(사용자 인터페이스) 정의
