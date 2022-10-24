@@ -13,8 +13,8 @@
 </head>
 
 <body>
-    <% include ./commons/navbar %>
-    <% include ./commons/header %>
+    <%- include ('commons/navbar') %>
+    <%- include ('commons/header') %>
     <main class="mt-2" style="margin-bottom: 400px;">
         <div class="container d-xl-flex justify-content-xl-center">
             <div class="row d-inline flex-fill">
@@ -79,7 +79,7 @@
             </div>
         </div>
     </main>
-    <% include ./commons/footer %>
+    <%- include ('commons/footer') %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://geodata.solutions/includes/countrystate.js"></script>
     <script src="/assets/js/script.min.js"></script>

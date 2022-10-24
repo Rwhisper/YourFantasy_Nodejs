@@ -1,3 +1,2 @@
-cd D:\Project\GitProject\Novel-Sharing-Platform_Nodejs\dev\yfantasy
+npm start
 
-nodemon npm start
